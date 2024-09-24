@@ -2,7 +2,7 @@
 JavaScript connector to [Calcite Avatica Server](https://calcite.apache.org/avatica/)
 
 Missing Avatica API Features:
-- There is no support for array/component columns or parameter
+- There is no support for array/component columns or parameters
 - There is no support for batch processing (Multistatement submission)
 - There is no way to configure frame batch sizes, or max rows count
 
