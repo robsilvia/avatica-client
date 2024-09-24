@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.apache.calcite.avatica.js'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.calcite.avatica:avatica-server:1.25.0'
+    implementation 'org.xerial:sqlite-jdbc:3.46.1.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.16'
+}
+
+tasks.register("delTestDb") {
+    group = "build setup"
+    doLast {
+        File file = project.file("test.db")
+        if (file.exists()) {
+            file.delete()
+            println("previous copy of test.db deleted")
+        }
+
+    }
+}
+
+tasks.register("start", JavaExec.class) { jexec ->
+    dependsOn("delTestDb")
+    dependsOn("classes")
+    group = "Server"
+    description = "Start avatica remote jdbc server back by SQLite database"
+    classpath(project.files(configurations.runtimeClasspath,sourceSets.main.output.classesDirs,sourceSets.main.output.resourcesDir))
+    mainClass.set("org.apache.calcite.avatica.js.AvaticaJsMain")
+}

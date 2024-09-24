@@ -1,0 +1,10 @@
+# npmignore
+gradle
+build
+src
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
+test.db
+
